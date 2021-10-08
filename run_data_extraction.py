@@ -18,6 +18,18 @@ def batch_extract(source_folder_name, target_filename):
                 extract(filepath, target_filename)
 
 
+def single_extract(source_filename, target_filename):
+    if not source_filename:
+        print('please select source data file')
+
+    if not target_filename:
+        print('please select target file')
+
+    if pathlib.Path(source_filename).suffix == '.xlsx':
+        if '~$' not in pathlib.Path(source_filename).name:
+            extract(source_filename, target_filename)
+
+
 def extract(source_file, target_file):
     # fetch data
     participant_data = Participant(source_file)
