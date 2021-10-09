@@ -1,8 +1,8 @@
 import tkinter as tk
 
-from single_gui import MainAppGui
+from src import SingleAppGui
 
 if __name__ == '__main__':
     root = tk.Tk()
-    app_gui = MainAppGui(root)
+    app_gui = SingleAppGui(root)
     root.mainloop()

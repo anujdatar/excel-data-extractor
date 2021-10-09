@@ -1,8 +1,8 @@
 import tkinter as tk
 
-from batch_gui import MainAppGui
+from src import BatchAppGui
 
 if __name__ == '__main__':
     root = tk.Tk()
-    app_gui = MainAppGui(root)
+    app_gui = BatchAppGui(root)
     root.mainloop()
