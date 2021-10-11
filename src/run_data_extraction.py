@@ -1,7 +1,8 @@
 import os
 import pathlib
-from participant_class import Participant
-from write_to_target_sheet import write_to_target_sheet
+
+from src import Participant
+from src import write_to_target_sheet
 
 
 def batch_extract(source_folder_name, target_filename):
