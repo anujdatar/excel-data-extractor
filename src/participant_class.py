@@ -25,13 +25,13 @@ class Participant:
     poll_sen_rep_sarg: int
     poll_sen_rep_larg: int
 
-    def __init__(self, filepath):
+    def __init__(self, filepath: str):
         self.fetch_data(filepath)
 
-    def fetch_data(self, filepath):
+    def fetch_data(self, filepath: str):
         """
         Fetch data from participant workbook
-        :param filepath: str
+        :param filepath: str -> absolute file path of source excel file
         """
         workbook = openpyxl.load_workbook(filepath, data_only=True)
         self.participant = workbook['Sum']['b2'].value

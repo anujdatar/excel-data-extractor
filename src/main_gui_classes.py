@@ -85,6 +85,7 @@ class BatchAppGui(MainAppGui):
         self.source_label.config(text='Select Source Folder')
 
     def select_source(self) -> None:
+        """Open tk file dialogue to select source directory"""
         source_folder_name = filedialog.askdirectory(
             title='Select Folder',
             initialdir='./'
@@ -92,6 +93,7 @@ class BatchAppGui(MainAppGui):
         self.source_name.set(source_folder_name)
 
     def run_program(self) -> None:
+        """Execute batch data extraction for all files in source folder"""
         source_folder_name = self.source_name.get()
         target_filename = self.target_name.get()
 
@@ -107,6 +109,7 @@ class SingleAppGui(MainAppGui):
         self.source_label.config(text='Select Source File')
 
     def select_source(self) -> None:
+        """Open tk file dialogue to select source excel file"""
         filetypes = [
             ('Excel', '.xlsx')
         ]
@@ -118,6 +121,7 @@ class SingleAppGui(MainAppGui):
         self.source_name.set(source_filename)
 
     def run_program(self) -> None:
+        """Execute data extraction on selected source file"""
         source_filename = self.source_name.get()
         target_filename = self.target_name.get()
 
