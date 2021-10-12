@@ -1,11 +1,13 @@
 import openpyxl
 
+from src import Participant
 
-def write_to_target_sheet(filepath, data):
+
+def write_to_target_sheet(filepath, data: Participant):
     """
     Write participant data to target file
-    :param filepath: str
-    :param data: participant data object
+    :param filepath: str -> absolute file path of target file
+    :param data: Participant -> participant data object
     """
     # get existing variable data sheet
     workbook = openpyxl.load_workbook(filepath)
@@ -36,8 +38,8 @@ def write_to_target_sheet(filepath, data):
 def get_last_row(sheet_object):
     """
     Get the last populated row from a spreadsheet
-    :param sheet_object: openpyxl worksheet
-    :return: int, index of the last row
+    :param sheet_object: openpyxl worksheet object
+    :return: int -> index of the last row
     """
     max_row_index = sheet_object.max_row
     while max_row_index > 1:
