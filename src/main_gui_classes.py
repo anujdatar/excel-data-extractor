@@ -13,37 +13,69 @@ class MainAppGui(ABC):
         self.master = master
         self.master.resizable(True, True)
 
+        self.variables_filename = tk.StringVar()
+        self.target_sheet_name = tk.StringVar()
         self.source_name = tk.StringVar()
         self.target_name = tk.StringVar()
+
+        # select variables definition csv file
+        self.variables_file_label = ttk.Label(self.master, text='Select Variables CSV')
+        self.variables_file_label.grid(row=0, column=0, padx=5, pady=5, sticky='W')
+
+        self.variables_file_entry = ttk.Entry(
+            self.master,
+            textvariable=self.variables_filename
+        )
+        self.variables_file_entry.grid(row=0, column=1, ipadx=80, padx=5, pady=5)
+
+        self.variables_file_button = ttk.Button(
+            self.master,
+            text='Browse',
+            command=self.select_variables_file
+        )
+        self.variables_file_button.grid(row=0, column=2, padx=5, pady=5)
 
         # select source file or folder
         # must define self.source_label.text on child class
         self.source_label = ttk.Label(self.master)
-        self.source_label.grid(row=0, column=0, padx=5, pady=5)
+        self.source_label.grid(row=1, column=0, padx=5, pady=5, sticky='W')
 
         self.source_entry = ttk.Entry(self.master, textvariable=self.source_name)
-        self.source_entry.grid(row=0, column=1, ipadx=80, padx=5, pady=5)
+        self.source_entry.grid(row=1, column=1, ipadx=80, padx=5, pady=5)
 
         self.source_button = ttk.Button(
             self.master,
             text='Browse',
             command=self.select_source
         )
-        self.source_button.grid(row=0, column=2, padx=5, pady=5)
+        self.source_button.grid(row=1, column=2, padx=5, pady=5)
 
         # select target file
         self.target_label = ttk.Label(self.master, text='Select Target File')
-        self.target_label.grid(row=1, column=0, padx=5, pady=5)
+        self.target_label.grid(row=2, column=0, padx=5, pady=5, sticky='W')
 
         self.target_entry = ttk.Entry(self.master, textvariable=self.target_name)
-        self.target_entry.grid(row=1, column=1, ipadx=80, padx=5, pady=5)
+        self.target_entry.grid(row=2, column=1, ipadx=80, padx=5, pady=5)
 
         self.target_button = ttk.Button(
             self.master,
             text='Browse',
             command=self.select_target
         )
-        self.target_button.grid(row=1, column=2, padx=5, pady=5)
+        self.target_button.grid(row=2, column=2, padx=5, pady=5)
+
+        # enter target worksheet name
+        self.target_sheet_label = ttk.Label(
+            self.master,
+            text='Enter Target Sheet Name'
+        )
+        self.target_sheet_label.grid(row=3, column=0, padx=5, pady=5, sticky='W')
+
+        self.target_sheet_entry = ttk.Entry(
+            self.master,
+            textvariable=self.target_sheet_name
+        )
+        self.target_sheet_entry.grid(row=3, column=1, ipadx=40, padx=5, pady=5, sticky='W')
 
         # execute program
         self.execute_button = ttk.Button(
@@ -51,7 +83,7 @@ class MainAppGui(ABC):
             text='Execute',
             command=self.run_program
         )
-        self.execute_button.grid(row=2, column=1, padx=20, pady=20)
+        self.execute_button.grid(row=4, column=1, padx=20, pady=20)
 
     @abstractmethod
     def select_source(self) -> None:
@@ -75,6 +107,18 @@ class MainAppGui(ABC):
         )
         self.target_name.set(target_filename)
 
+    def select_variables_file(self) -> None:
+        """Open a file selection dialog to select variables definition csv"""
+        filetypes = [
+            ('CSV', '.csv')
+        ]
+        variables_filename = filedialog.askopenfilename(
+            title='Select Variables Definition File',
+            initialdir='./',
+            filetypes=filetypes
+        )
+        self.variables_filename.set(variables_filename)
+
 
 class BatchAppGui(MainAppGui):
     """GUI for batch extraction app"""
@@ -94,10 +138,17 @@ class BatchAppGui(MainAppGui):
 
     def run_program(self) -> None:
         """Execute batch data extraction for all files in source folder"""
+        variables_filename = self.variables_filename.get()
         source_folder_name = self.source_name.get()
         target_filename = self.target_name.get()
+        target_sheet = self.target_sheet_name.get()
 
-        batch_extract(source_folder_name, target_filename)
+        batch_extract(
+            variables_filename,
+            source_folder_name,
+            target_filename,
+            target_sheet
+        )
 
 
 class SingleAppGui(MainAppGui):
@@ -122,7 +173,14 @@ class SingleAppGui(MainAppGui):
 
     def run_program(self) -> None:
         """Execute data extraction on selected source file"""
+        variables_filename = self.variables_filename.get()
         source_filename = self.source_name.get()
         target_filename = self.target_name.get()
+        target_sheet = self.target_sheet_name.get()
 
-        single_extract(source_filename, target_filename)
+        single_extract(
+            variables_filename,
+            source_filename,
+            target_filename,
+            target_sheet
+        )
