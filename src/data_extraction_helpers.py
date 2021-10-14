@@ -100,6 +100,7 @@ def extract(vars_file: str, source_file: str, target_file: str, target_sheet: st
     variables = read_variables_csv(vars_file)
     data = fetch_data(source_file, variables)
     write_to_target_sheet(target_file, target_sheet, data)
+    print(f'Data extracted from "{source_file}" complete. Written to "{target_file} > {target_sheet}"')
 
 
 if __name__ == '__main__':

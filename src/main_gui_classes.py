@@ -14,9 +14,9 @@ class MainAppGui(ABC):
         self.master.resizable(True, True)
 
         self.variables_filename = tk.StringVar()
-        self.target_sheet_name = tk.StringVar()
         self.source_name = tk.StringVar()
         self.target_name = tk.StringVar()
+        self.target_sheet_name = tk.StringVar()
 
         # select variables definition csv file
         self.variables_file_label = ttk.Label(self.master, text='Select Variables CSV')
@@ -86,7 +86,7 @@ class MainAppGui(ABC):
         self.execute_button.grid(row=4, column=1, padx=20, pady=20)
 
     @abstractmethod
-    def set_source_label(self):
+    def set_source_label(self) -> None:
         """Abstract method, forces setting source label in child class"""
         pass
 
@@ -124,6 +124,13 @@ class MainAppGui(ABC):
         )
         self.variables_filename.set(variables_filename)
 
+    def clear_input_fields(self) -> None:
+        """Clear all input/entry fields"""
+        self.variables_filename.set('')
+        self.source_name.set('')
+        self.target_name.set('')
+        self.target_sheet_name.set('')
+
 
 class BatchAppGui(MainAppGui):
     """GUI for batch extraction app"""
@@ -155,6 +162,7 @@ class BatchAppGui(MainAppGui):
             target_filename,
             target_sheet
         )
+        self.clear_input_fields()
 
 
 class SingleAppGui(MainAppGui):
@@ -191,3 +199,4 @@ class SingleAppGui(MainAppGui):
             target_filename,
             target_sheet
         )
+        self.clear_input_fields()

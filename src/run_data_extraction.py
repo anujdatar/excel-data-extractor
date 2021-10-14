@@ -29,6 +29,8 @@ def batch_extract(
                 filepath = source_folder_name + '/' + file
                 extract(vars_file, filepath, target_filename, target_sheet)
 
+    print('Data Extraction Complete')
+
 
 def single_extract(
         vars_file: str,
@@ -52,3 +54,5 @@ def single_extract(
     if pathlib.Path(source_filename).suffix == '.xlsx':
         if '~$' not in pathlib.Path(source_filename).name:
             extract(vars_file, source_filename, target_filename, target_sheet)
+
+    print('Data Extraction Complete')
