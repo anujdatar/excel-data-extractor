@@ -36,9 +36,9 @@ class MainAppGui(ABC):
         self.variables_file_button.grid(row=0, column=2, padx=5, pady=5)
 
         # select source file or folder
-        # must define self.source_label.text on child class
         self.source_label = ttk.Label(self.master)
         self.source_label.grid(row=1, column=0, padx=5, pady=5, sticky='W')
+        self.set_source_label()
 
         self.source_entry = ttk.Entry(self.master, textvariable=self.source_name)
         self.source_entry.grid(row=1, column=1, ipadx=80, padx=5, pady=5)
@@ -86,6 +86,11 @@ class MainAppGui(ABC):
         self.execute_button.grid(row=4, column=1, padx=20, pady=20)
 
     @abstractmethod
+    def set_source_label(self):
+        """Abstract method, forces setting source label in child class"""
+        pass
+
+    @abstractmethod
     def select_source(self) -> None:
         """Abstract method to select source file or folder"""
         pass
@@ -126,6 +131,7 @@ class BatchAppGui(MainAppGui):
         super().__init__(master)
         self.master.title('Python Data Extractor - Batch')
 
+    def set_source_label(self):
         self.source_label.config(text='Select Source Folder')
 
     def select_source(self) -> None:
@@ -157,6 +163,7 @@ class SingleAppGui(MainAppGui):
         super().__init__(master)
         self.master.title('Python Data Extractor - Single')
 
+    def set_source_label(self):
         self.source_label.config(text='Select Source File')
 
     def select_source(self) -> None:
