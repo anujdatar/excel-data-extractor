@@ -26,11 +26,10 @@ Simple batch data extraction tool written in python
 
 6. Run program
     ```sh
-    # for processing all files in a folder as a batch
-    ./batch.py
+    ./main.py
     
-    # for processing one excel file at a time
-    ./single.py
+    # and select single or batch extraction. You can later switch between the 
+    # two using the options menu in the menubar
     ```
 7. Define data to be extracted from source Excel sheets and the target cells
 in a CSV **(\*.csv)** file
