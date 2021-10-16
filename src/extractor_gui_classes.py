@@ -1,17 +1,16 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
-
 from abc import ABC, abstractmethod
 
 from src import batch_extract, single_extract
 
 
-class MainAppGui(ABC):
-    """Base GUI class for the app"""
-    def __init__(self, master=None):
+class ExtractorGui(tk.Frame, ABC):
+    """Base GUI class for the extractor frame"""
+    def __init__(self, master: tk.Frame = None):
+        super().__init__(master)
         self.master = master
-        self.master.resizable(True, True)
 
         self.variables_filename = tk.StringVar()
         self.source_name = tk.StringVar()
@@ -132,19 +131,18 @@ class MainAppGui(ABC):
         self.target_sheet_name.set('')
 
 
-class BatchAppGui(MainAppGui):
+class BatchAppGui(ExtractorGui):
     """GUI for batch extraction app"""
     def __init__(self, master=None):
         super().__init__(master)
-        self.master.title('Python Data Extractor - Batch')
 
-    def set_source_label(self):
+    def set_source_label(self) -> None:
         self.source_label.config(text='Select Source Folder')
 
     def select_source(self) -> None:
         """Open tk file dialogue to select source directory"""
         source_folder_name = filedialog.askdirectory(
-            title='Select Folder',
+            title='Select Source Folder',
             initialdir='./'
         )
         self.source_name.set(source_folder_name)
@@ -165,13 +163,12 @@ class BatchAppGui(MainAppGui):
         self.clear_input_fields()
 
 
-class SingleAppGui(MainAppGui):
+class SingleAppGui(ExtractorGui):
     """GUI for batch extraction app"""
     def __init__(self, master=None):
         super().__init__(master)
-        self.master.title('Python Data Extractor - Single')
 
-    def set_source_label(self):
+    def set_source_label(self) -> None:
         self.source_label.config(text='Select Source File')
 
     def select_source(self) -> None:
