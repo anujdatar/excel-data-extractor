@@ -8,8 +8,7 @@ def batch_extract(
         vars_file: str,
         source_folder_name: str,
         target_filename: str,
-        target_sheet: str
-):
+        target_sheet: str) -> None:
     """
     Handle extraction in batch mode, from source folder
     :param vars_file: str -> absolute path to variable definition csv
@@ -36,8 +35,7 @@ def single_extract(
         vars_file: str,
         source_filename: str,
         target_filename: str,
-        target_sheet: str
-):
+        target_sheet: str) -> None:
     """
     Handle extraction in single file mode.
     :param vars_file: str -> absolute path to variable definition csv
