@@ -26,32 +26,31 @@ Simple batch data extraction tool written in python
 
 6. Run program
     ```sh
-    # for processing all files in a folder as a batch
-    python batch.py
+    ./main.py
     
-    # for processing one excel file at a time
-    python single.py
+    # and select single or batch extraction. You can later switch between the 
+    # two using the options menu in the menubar
     ```
 7. Define data to be extracted from source Excel sheets and the target cells
 in a CSV **(\*.csv)** file
 
-| Variable   | Sheet Name | Cell Address | data type | destination column |
-| ---------- | ---------- | ------------ | --------- | ------------------ |
-| variable 1 | Sheet 1    |  a1          | str       | 1                  |
-| variable 2 | Sheet 3    |  g4          | int       | 2                  |
-| variable 3 | Sheet 3    |  b1          | int       | 3                  |
+    | Variable   | Sheet Name | Cell Address | data type | destination column |
+    | ---------- | ---------- | ------------ | --------- | ------------------ |
+    | variable 1 | Sheet 1    |  a1          | str       | 1                  |
+    | variable 2 | Sheet 3    |  g4          | int       | 2                  |
+    | variable 3 | Sheet 3    |  b1          | int       | 3                  |
 
-Note: 
-- variable names are for user reference only, not used by program
-- Sheet Names should be exact, they are case-sensitive
-- Cell address is for the source data, not case-sensitive
-- data type is for reference right now, validation needs to be implemented
-- should be a number, column A=1, B=2, C=3, ... etc.
+    Note: 
+    - variable names are for user reference only, not used by program
+    - Sheet Names should be exact, they are case-sensitive
+    - Cell address is for the source data, not case-sensitive
+    - data type is for reference right now, validation needs to be implemented
+    - should be a number, column A=1, B=2, C=3, ... etc.
 
 8. In the GUI,
-- select the variable definition CSV file, source file/folder, target file
-- enter the name of the worksheet in the target Excel file. Should be exact, 
-is case-sensitive
+    - select the variable definition CSV file, source file/folder, target file
+    - enter the name of the worksheet in the target Excel file. Should be exact, 
+    is case-sensitive
 
 ## Note
 This is for a very specific application at the moment extracting pre-defined

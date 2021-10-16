@@ -22,7 +22,7 @@ class DataVariable:
         self.destination_col = int(item[4])  # needs to be an integer
 
 
-def read_variables_csv(filepath: str):
+def read_variables_csv(filepath: str) -> List[DataVariable]:
     """
     Fetch variable info, variable names, cells, data type, etc.
     converts csv data into dataclass to enable data extraction from excel source
@@ -40,7 +40,8 @@ def read_variables_csv(filepath: str):
     return variables
 
 
-def fetch_data(filepath: str, variables: List[DataVariable]):
+def fetch_data(filepath: str,
+               variables: List[DataVariable]) -> List[DataVariable]:
     """
     Fetch data from source excel worksheets
     :param filepath: str -> absolute file path of source excel sheet
@@ -55,7 +56,7 @@ def fetch_data(filepath: str, variables: List[DataVariable]):
     return variables
 
 
-def get_last_row(sheet_object):
+def get_last_row(sheet_object) -> int:
     """
     Get the last populated row from a spreadsheet
     :param sheet_object: openpyxl worksheet
@@ -70,13 +71,14 @@ def get_last_row(sheet_object):
     return max_row_index
 
 
-def write_to_target_sheet(filepath: str, target_sheet: str, data:  List[DataVariable]):
+def write_to_target_sheet(filepath: str,
+                          target_sheet: str,
+                          data:  List[DataVariable]) -> None:
     """
     Write data to target excel file after data extraction
     :param filepath: str -> absolute file path of target excel sheet
     :param target_sheet: str -> excel worksheet that you need to fill
     :param data: list[DataVariable] -> all the variable data, source, target info
-    :return:
     """
     workbook = openpyxl.load_workbook(filepath)
     worksheet = workbook[target_sheet]
@@ -89,7 +91,10 @@ def write_to_target_sheet(filepath: str, target_sheet: str, data:  List[DataVari
     workbook.save(filepath)
 
 
-def extract(vars_file: str, source_file: str, target_file: str, target_sheet: str):
+def extract(vars_file: str,
+            source_file: str,
+            target_file: str,
+            target_sheet: str) -> None:
     """
     Extract data from source file and write to target file
     :param vars_file: str -> absolute path to variable definition csv
